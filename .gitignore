@@ -6,3 +6,4 @@
 001_web/chromedriver
 501_google_office/google_account.json
 *.json
+901_Telegram/001_hotdeal/info.py
