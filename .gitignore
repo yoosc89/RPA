@@ -1,0 +1,8 @@
+001_web/cookie/site_list/
+000_file/indexing_list.json
+001_web/lib/__pycache__/
+001_web/chromedriver.exe
+001_web/chromedriver1
+001_web/chromedriver
+501_google_office/google_account.json
+*.json
