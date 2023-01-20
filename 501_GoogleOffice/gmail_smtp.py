@@ -65,15 +65,21 @@ class GMAILSend:
         self.mailServer.quit()
 
 
-def sendMail(From: str, To: str, Subject: str, Body: list, Cidname: str, Image: list, Filelist: list):
+def sendMail(From: str, To: str, Subject: str,
+             Body: list, Cidname: str, Image: list,
+             Filelist: list):
+
     email = GMAILSend()
     email.add_adrress(From=From, To=To)
     email.add_subject(Subject=Subject)
     email.add_body(Body=Body)
+
     if Image:
         email.add_img(Image=image, cidname=Cidname)
+
     if Filelist:
         email.add_file(FileList=Filelist)
+
     email.mail_send()
     email.quit()
 
@@ -81,12 +87,14 @@ def sendMail(From: str, To: str, Subject: str, Body: list, Cidname: str, Image: 
 if __name__ == '__main__':
     _from: str = 'yoosc89@gmail.com'
     _to: str = 'yoosc89@gmail.com'
+
     subject: str = 'image test'
     cidname = 'image'
+
     image = '1.jpg'
-    body = f'<img src="cid:{cidname}">'
-    bodytext = f'<h1>dfdfsdfsfsdf</h1>'
     filelist: list = []
+
+    body = f'<img src="cid:{cidname}">'
 
     sendMail(From=_from, To=_to, Subject=subject, body=body,
              Cidname=cidname, Image=image, Filelist=filelist)
