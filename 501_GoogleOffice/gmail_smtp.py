@@ -1,4 +1,6 @@
-import smtplib, json, os
+import smtplib
+import json
+import os
 from email.encoders import encode_base64
 from email.header import Header
 from email.mime.base import MIMEBase
@@ -13,8 +15,9 @@ FILEJSON = 'google_account.json'
 SMTPURL = 'smtp.gmail.com'
 SMTPPORT = '465'  # SSL port
 
-with open(os.path.join(ROOT_DIR, FILEJSON),'r') as f:
-    jsonfile=json.load(f)
+with open(os.path.join(ROOT_DIR, FILEJSON), 'r') as f:
+    jsonfile = json.load(f)
+
 
 class GMAILSend:
     def __init__(self) -> None:
@@ -62,6 +65,19 @@ class GMAILSend:
         self.mailServer.quit()
 
 
+def sendMail(From: str, To: str, Subject: str, Body: list, Cidname: str, Image: list, Filelist: list):
+    email = GMAILSend()
+    email.add_adrress(From=From, To=To)
+    email.add_subject(Subject=Subject)
+    email.add_body(Body=Body)
+    if Image:
+        email.add_img(Image=image, cidname=Cidname)
+    if Filelist:
+        email.add_file(FileList=Filelist)
+    email.mail_send()
+    email.quit()
+
+
 if __name__ == '__main__':
     _from: str = 'yoosc89@gmail.com'
     _to: str = 'yoosc89@gmail.com'
@@ -69,14 +85,8 @@ if __name__ == '__main__':
     cidname = 'image'
     image = '1.jpg'
     body = f'<img src="cid:{cidname}">'
-    bodytext=f'<h1>dfdfsdfsfsdf</h1>'
+    bodytext = f'<h1>dfdfsdfsfsdf</h1>'
     filelist: list = []
 
-    email = GMAILSend()
-    email.add_adrress(From=_from, To=_to)
-    email.add_subject(Subject=subject)
-    email.add_body(Body=bodytext)
-    email.add_img(Image=image, cidname=cidname)
-    email.add_file(FileList=filelist)
-    email.mail_send()
-    email.quit()
+    sendMail(From=_from, To=_to, Subject=subject, body=body,
+             Cidname=cidname, Image=image, Filelist=filelist)
